@@ -1,0 +1,94 @@
+---
+title: "Markov Processes"
+subtitle: <h2>Predicting the future with the current state</h2>
+author: "Eric Leung"
+date: "2018 Jan 01"
+output:
+  revealjs::revealjs_presentation:
+    theme: serif
+    highlight: tango
+    center: false
+    transition: fade
+    mathjax: default
+    fig_width: 7
+    fig_caption: true
+    css: custom.css
+    reveal_options:
+      slideNumber: true
+---
+
+## Overview
+
+Motivating example
+
+Basic definitions
+
+Advanced topics
+
+```{r Setup, echo=FALSE, message=FALSE, warning=FALSE}
+library(DiagrammeR) # Create nice diagrams through presentation
+```
+
+## Let's start off with basics
+
+Stochastic versus deterministic models
+
+<img src="http://www.55cards.com/brettspiel/img/1001/100111_chesssnakes.gif" style="width: 75%"/>
+
+Source: http://www.brettspiel.co.uk/2010/01/game-design-101-what-are-odds.html
+
+## Abstract to state diagram
+
+```{r, echo=FALSE}
+grViz("
+  digraph markov {
+    // Set graph background to be transparent
+    graph [bgcolor=transparent];
+    rank = same; // Rank nodes to be the same
+    node [shape = circle];
+    fixedsize = true;
+
+    // Specify nodes
+    sick [width=0.8];
+    healthy [width=0.8];
+
+    {
+      // Specify directionality
+      sick:ne -> sick:nw;
+      healthy:nw -> healthy:ne;
+      sick -> healthy;
+      healthy -> sick;
+    }
+  }
+")
+```
+
+## Two column slide
+
+<div class = "column-left">
+```{r cars,  warning = FALSE, echo = FALSE, dev=c('svg')}
+plot(pressure)
+```
+</div>
+<div class = "column-right">
+```{r pressure, warning = FALSE, echo=FALSE, dev=c('svg')}
+plot(pressure)
+```
+</div>
+
+## Key functions in R and Python
+
+| R            | Python (`import numpy as np`) |
+|--------------|-------------------------------|
+| matrix()     | np.array()                    |
+| %*%          | np.dot()                      |
+| t()          | A.T                           |
+| diag()       | A.diagonal()                  |
+| rbind, cbind | ustack, hstack                |
+| solve        | np.linalg.solve()             |
+
+## Resources
+
+- [Visual Explanation of Markov Chains](http://setosa.io/blog/2014/07/26/markov-chains/index.html)
+- [Brilliant: Markov Chains](https://brilliant.org/wiki/markov-chains/)
+- ["That's Maths: Andrey Markov's brilliant ideas are still bearing fruit"](https://www.irishtimes.com/news/science/that-s-maths-andrey-markov-s-brilliant-ideas-are-still-bearing-fruit-1.3220929)
